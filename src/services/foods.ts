@@ -1,4 +1,4 @@
-import { IFoodContainer, IEditingFood } from '../types';
+import { IFoodContainer } from '../types';
 import api from './api';
 
 export const getFoods = async (): Promise<IFoodContainer[]> =>
@@ -14,9 +14,9 @@ export const insertFood = async (food: IFoodContainer): Promise<IFoodContainer> 
 
 export const updateFood = async (
   food: IFoodContainer,
-  editingFood: IEditingFood
+  editingFood: IFoodContainer
 ): Promise<IFoodContainer> =>
-  await api.put(`foods/${food.Id}`, {
+  await api.put(`foods/${food.id}`, {
     ...editingFood,
     ...food,
   });
