@@ -1,13 +1,8 @@
 export interface IFoodContainer {
-  Id: string;
-  Name: string;
-  Description: string;
-  Price: string;
-  Available: boolean;
-  Image: string;
-}
-
-export interface IEditingFood {
-  editingFood: IFoodContainer;
-  editModalOpen: boolean;
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  available: boolean;
+  image: string;
 }

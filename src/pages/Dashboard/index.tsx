@@ -1,21 +1,22 @@
 import { useEffect, useState, useCallback } from 'react';
 
-import Header from '../../components/Header';
+import { Header } from '../../components/Header';
 import Food from '../../components/Food';
 import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
-import { IFoodContainer, IEditingFood } from '../../types';
+import { IFoodContainer } from '../../types';
 import { getFoods, insertFood, updateFood, deleteFood } from '../../services/foods';
 import { FoodsContainer } from './styles';
 
 export const Dashboard = (): JSX.Element => {
   const [foods, setFoods] = useState<IFoodContainer[]>([]);
-  const [editingFood, setEditingFood] = useState<IEditingFood>();
+  const [editingFood, setEditingFood] = useState<IFoodContainer>();
   const [isModalOpen, setIsOpenModal] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
 
   const fetchFoods = useCallback(async (): Promise<void> => {
     const foods = await getFoods();
+    console.log(foods);
     setFoods(foods);
   }, [setFoods]);
 
@@ -39,7 +40,7 @@ export const Dashboard = (): JSX.Element => {
 
       const foodUpdated = await updateFood(food, editingFood);
 
-      const foodsUpdated = foods.map(f => (f.Id !== foodUpdated.Id ? f : foodUpdated));
+      const foodsUpdated = foods.map(f => (f.id !== foodUpdated.id ? f : foodUpdated));
 
       setFoods(foodsUpdated);
     } catch (err) {
@@ -50,7 +51,7 @@ export const Dashboard = (): JSX.Element => {
   const handleDeleteFood = async (id: string) => {
     await deleteFood(id);
 
-    const foodsFiltered = foods.filter(food => food.Id !== id);
+    const foodsFiltered = foods.filter(food => food.id !== id);
 
     setFoods(foodsFiltered);
   };
@@ -64,7 +65,8 @@ export const Dashboard = (): JSX.Element => {
   };
 
   const handleEditFood = (food: IFoodContainer): void => {
-    setEditingFood({ editingFood: food, editModalOpen: true });
+    setEditingFood(food);
+    toggleEditModal();
   };
   return (
     <>
@@ -81,7 +83,7 @@ export const Dashboard = (): JSX.Element => {
         {foods &&
           foods.map(food => (
             <Food
-              key={food.Id}
+              key={food.id}
               food={food}
               handleDelete={handleDeleteFood}
               handleEditFood={handleEditFood}
