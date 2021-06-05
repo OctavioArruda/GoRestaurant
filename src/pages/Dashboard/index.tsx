@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { Header } from '../../components/Header';
 import Food from '../../components/Food';
-import ModalAddFood from '../../components/ModalAddFood';
+import { ModalAddFood } from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
 import { IFoodContainer } from '../../types';
 import { getFoods, insertFood, updateFood, deleteFood } from '../../services/foods';
@@ -68,6 +68,7 @@ export const Dashboard = (): JSX.Element => {
     setEditingFood(food);
     toggleEditModal();
   };
+
   return (
     <>
       <Header openModal={toggleModal} />
