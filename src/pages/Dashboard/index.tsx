@@ -76,7 +76,7 @@ export const Dashboard = (): JSX.Element => {
       <ModalEditFood
         isOpen={editModalOpen}
         setIsOpen={toggleEditModal}
-        editingFood={editingFood}
+        editingFood={editingFood as IFoodContainer}
         handleUpdateFood={handleUpdateFood}
       />
 
